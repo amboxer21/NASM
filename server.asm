@@ -7,8 +7,11 @@ section .data
 
   SYS_EXIT:  equ 1
   SYS_WRITE: equ 4
-  SYS_READ:  equ 3
+  SYS_SEND:  equ 9
   AF_INET:   equ 2
+  SYS_RECV:  equ 10
+  SYS_SOKET: equ 1
+  SYS_CONNECT:    equ 3
   SOCK_STREAM:    equ 1
   SYS_SOCKETCALL: equ 102
 
@@ -17,8 +20,6 @@ section .text
   global _start
     _start:
 
-
-    create:
       mov eax, 4
       mov ebx, 1
       mov ecx, start
@@ -28,3 +29,20 @@ section .text
       mov eax, 1
       mov ebx, 0
       int 80h
+
+    ;socket
+
+
+    ;bind
+
+
+    ;accept
+
+    ;loop
+
+    ;receive
+
+
+    ;send
+
+    ;closefd
