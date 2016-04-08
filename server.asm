@@ -1,4 +1,5 @@
 section .data
+
   start: db 'Starting server.',10
   start_len: equ $-start
 
@@ -31,19 +32,30 @@ section .text
       mov ebx, 0
       int 80h
 
-    ;socket
+      push ebp
+      mov  ebp, esp
+      sub  esp, 12
+
+      ;socket
+      mov  [ebp -  4], AF_INET
+      mov  [ebp -  8], SOCK_STREAM
+      mov  [ebp - 12], 0
+
+      ;bind
 
 
-    ;bind
+      ;accept
 
 
-    ;accept
-
-    ;loop
-
-    ;receive
+      ;loop
 
 
-    ;send
+      ;receive
 
-    ;closefd
+
+      ;send
+
+
+      ;closefd
+
+
