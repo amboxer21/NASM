@@ -28,9 +28,10 @@ section .text
       mov edx, start_len
       int 80h
 
-      mov eax, 1
-      mov ebx, 0
-      int 80h
+      ;No need to exit here.
+      ;mov eax, SYS_EXIT
+      ;mov ebx, 0 ;Exit code of 0(No error).
+      ;int 80h    ;Call Kernel
 
       push ebp
       mov  ebp, esp
