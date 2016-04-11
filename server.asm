@@ -10,6 +10,7 @@ section .data
   SYS_RECV:  equ 10
   SYS_SOKET: equ 1
 
+  SOCK_PROTO:     equ 0
   SYS_CONNECT:    equ 3
   SOCK_STREAM:    equ 1
   SYS_SOCKETCALL: equ 102
@@ -35,12 +36,15 @@ section .text
 
       push ebp
       mov  ebp, esp
-      sub  esp, 12
+      sub  esp, 14
 
       ;socket
       mov  [ebp -  4], dword AF_INET
       mov  [ebp -  8], dword SOCK_STREAM
-      mov  [ebp - 12], dword 0
+      mov  [ebp - 12], dword SOCK_PROTO
+      mov  [ebp - 14], dword SYS_SOCKETCALL
+      int 80h
+      ret
 
       ;bind
 
