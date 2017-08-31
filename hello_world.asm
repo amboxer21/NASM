@@ -1,14 +1,12 @@
+bits 32
+global main
+
 section .data
   hello: db 'Hello world!'
   h_len equ $-hello
 
-section .bss
-
-
 section .text
-  global _start
-
-    _start:
+    main:
       mov eax, 4
       mov ebx, 1
       mov ecx, hello
