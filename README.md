@@ -12,3 +12,6 @@ To generate a 32 bit intel syntax executable for debugging with gdb:
 gcc -S -masm=intel -m32 server.c
 gcc -c -m32 server.s
 gcc -m32 -o server server.o
+
+Dump c code as asm intrustions:
+objdump -Mintel -D bare_server.o
