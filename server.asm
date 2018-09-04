@@ -19,48 +19,50 @@ section .data
   ip:   dq '0x7F000001' ;127.0.0.1
 
 section .text
+    global _start
 
-  global _start
-    _start:
+        ;'starting server' message
+        :starting_server_message
+            mov eax, 4
+            mov ebx, 1
+            mov ecx, start
+            mov edx, start_len
+            int 80h
 
-      mov eax, 4
-      mov ebx, 1
-      mov ecx, start
-      mov edx, start_len
-      int 80h
+        ;void exit(int status)
+        :exit
+            mov eax, SYS_EXIT
+            mov ebx, 0 ;Exit code of 0(No error).
+            int 80h
 
-      ;No need to exit here.
-      ;mov eax, SYS_EXIT
-      ;mov ebx, 0 ;Exit code of 0(No error).
-      ;int 80h    ;Call Kernel
+        ;int socket(int family, int type, int protocol)
+        :socket
+            mov  [ebp -  4], dword AF_INET
+            mov  [ebp -  8], dword SOCK_STREAM
+            mov  [ebp - 12], dword SOCK_PROTO
+            mov  [ebp - 14], dword SYS_SOCKETCALL
+            int 80h
+            ret
 
-      push ebp
-      mov  ebp, esp
-      sub  esp, 14
-
-      ;socket
-      mov  [ebp -  4], dword AF_INET
-      mov  [ebp -  8], dword SOCK_STREAM
-      mov  [ebp - 12], dword SOCK_PROTO
-      mov  [ebp - 14], dword SYS_SOCKETCALL
-      int 80h
-      ret
-
-      ;bind
+        ;bind
 
 
-      ;accept
+        ;accept
 
 
-      ;loop
+        ;loop
 
 
-      ;receive
+        ;receive
 
 
-      ;send
+        ;send
 
 
-      ;closefd
+        ;closefd
 
+        _start:
 
+        ;push ebp
+        ;mov  ebp, esp
+        ;sub  esp, 14
