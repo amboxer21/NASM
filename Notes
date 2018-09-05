@@ -1,0 +1,51 @@
+objdump -Mintel -D test.o
+
+00000000 <func>:
+push   ebp
+mov    ebp,esp
+push   ebx
+sub    esp,0x4
+call   8 <func+0x8>
+add    eax,0x1
+sub    esp,0x8
+push   DWORD PTR [ebp+0x8]
+lea    edx,[eax+0x0]
+push   edx
+mov    ebx,eax
+call   21 <func+0x21>
+add    esp,0x10
+mov    eax,0x0
+mov    ebx,DWORD PTR [ebp-0x4]
+leave  
+ret    
+
+00000032 <main>:
+lea    ecx,[esp+0x4]
+and    esp,0xfffffff0
+push   DWORD PTR [ecx-0x4]
+push   ebp
+mov    ebp,esp
+push   ecx
+sub    esp,0x14
+call   44 <main+0x12>
+add    eax,0x1
+mov    DWORD PTR [ebp-0xc],0x5
+sub    esp,0xc
+push   DWORD PTR [ebp-0xc]
+call   5b <main+0x29>
+add    esp,0x10
+mov    eax,0x0
+mov    ecx,DWORD PTR [ebp-0x4]
+leave  
+lea    esp,[ecx-0x4]
+ret 
+
+--------------------------
+
+
+https://aaronbloomfield.github.io/pdr/book/x86-32bit-ccc-chapter.pdf
+https://en.wikipedia.org/wiki/X86_calling_conventions
+https://practicalmalwareanalysis.com/2012/04/03/all-about-ebp/
+The initial value for %ebp is usually 0. This is so debuggers know when to end following the link chain in a backtrace.
+You should think of %ebp as a reference point. For convenience, it is placed between the function arguments and local variables. That way, you access arguments with a positive offset, and variables with a negative offset, so it's easy to tell whether you are accessing a variable or an argument.
+^^https://stackoverflow.com/questions/8361942/assembly-registers-esp-and-ebp
