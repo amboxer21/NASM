@@ -42,41 +42,42 @@ section .text
 
     ;int socket(int family, int type, int protocol)
     socket:
-        mov [ebp -  4], dword AF_INET
+        push ebp
+        mov ebp, esp
+        sub esp, 16
+
+        ; you access arguments with a positive offset, and variables with a negative offset
+        mov [ebp - 12], dword AF_INET ;dword is 4 bytes
         mov [ebp -  8], dword SOCK_STREAM
-        mov [ebp - 12], dword SOCK_PROTO
-        mov [ebp - 14], dword SYS_SOCKETCALL
-        mov eax, SYS_SOCKET
+        mov [ebp -  4], dword SOCK_PROTO
+        mov eax, 102
+        mov ebx, 1
+        lea ecx, [ebp-12]
         int 80h
+
+        mov esp, ebp
+        pop ebp
         ret
 
     ;int bind(int fd, struct sockaddr * sockaddr, int addrlen)
-    bind:
+    ;bind:
         
-        mov eax, SYS_BIND
-        int 80h
-        ret
+    ;accept:
 
 
-    ;accept
+    ;loop:
 
 
-    ;loop
+    ;receive:
 
 
-    ;receive
+    ;send:
 
 
-    ;send
-
-
-    ;closefd
+    ;closefd:
 
     main:
 
         call starting_server_message
-        call socket
 
-        ;push ebp
-        ;mov  ebp, esp
-        ;sub  esp, 14
+        call socket
